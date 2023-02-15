@@ -32,12 +32,7 @@ conda deactivate
 for VERSION in 3.6 3.7 3.8 3.9 3.10; do
     conda create -n py$VERSION -y python=$VERSION
     conda activate py$VERSION
-    python setup.py build_ext bdist_wheel \
+    STATIC_LIBS=1 python setup.py build_ext bdist_wheel \
         --plat-name manylinux1_x86_64
     conda deactivate
 done
-
-# Upload to PyPI
-conda activate py3.6
-python -m pip install setuptools wheel twine
-python -m twine upload dist/*
